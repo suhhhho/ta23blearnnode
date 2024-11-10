@@ -1,3 +1,2 @@
-const fs = require ('fs');
-
-fs.writeFileSync('test.txt', 'Some');
+const common = require('./commonjs');
+common.hello();
