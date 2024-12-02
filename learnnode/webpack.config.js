@@ -8,13 +8,13 @@ let name = "Sofja Portnova"
  
  
 export default async() =>{
-    const response = await fetch("https://rickandmortyapi.com/api/character")
+    const response = await fetch("https://rickandmortyapi.com/api/character?page=18  ")
 const data = await response.json()
 const characters = data.results
 const pages = [];
 characters.forEach(character => {
   let page = new HtmlWebpackPlugin({
-      template: './src/about.njk',
+      template: './src/character.njk',
       filename:`character_${character.id}.html`,
       templateParameters:{
         character,
