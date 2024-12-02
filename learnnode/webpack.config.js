@@ -1,32 +1,13 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { VueLoaderPlugin } from 'vue-loader';
+import webpack from 'webpack';
  
 const __filename = import.meta.filename;
 const __dirname = import.meta.dirname;
- 
-let name = "Sofja Portnova"
- 
- 
-export default async() =>{
-    const response = await fetch("https://rickandmortyapi.com/api/character?page=18  ")
-const data = await response.json()
-const characters = data.results
-const pages = [];
-characters.forEach(character => {
-  let page = new HtmlWebpackPlugin({
-      template: './src/character.njk',
-      filename:`character_${character.id}.html`,
-      templateParameters:{
-        character,
-      }
 
-  });
-  pages.push(page)
-});
-console.log(characters)
-return {
-
-
+ 
+export default {
     entry: './src/index.js',
     output: {
         filename: 'main.js',
@@ -43,13 +24,16 @@ return {
         rules: [
             {
                 test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
+                use: ["style-loader", "css-loader"], 
             },
             {
                 test: /\.s[ac]ss$/i,
                 use: [
+                    // Creates `style` nodes from JS strings
                     "style-loader",
+                    // Translates CSS into CommonJS
                     "css-loader",
+                    // Compiles Sass to CSS
                     {
                         loader: 'sass-loader',
                         options: {
@@ -61,28 +45,20 @@ return {
                 ],
             },
             {
-                test: /\.njk$/,
-                use: [
-                    {
-                        loader: 'simple-nunjucks-loader',
-                        options: {}
-                    }
-                ]
-            }
+                test: /\.vue$/,
+                loader: 'vue-loader'
+              },
         ],
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.njk',
-            templateParameters: {
-               name, characters
-            }
+            template: './src/index.html',
         }),
-        new HtmlWebpackPlugin({
-            template: './src/about.njk',
-            filename: 'about.html'
-        }),
-        ...pages
+        new VueLoaderPlugin(),
+        new webpack.DefinePlugin({
+            __VUE_OPTIONS_API__: 'true',
+            __VUE_PROD_DEVTOOLS__: 'false',
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false'
+        })
     ],
-}
-}
+};
