@@ -8,7 +8,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "start": "webpack serve --mode development",
-    "deploy": "npm run build && surge ./dist monkeyt23b"
+    "deploy": "npm run build && surge ./dist monkeyt23b.surge.sh"
   },
   "keywords": [],
   "author": "",
