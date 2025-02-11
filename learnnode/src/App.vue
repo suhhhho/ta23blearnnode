@@ -1,12 +1,10 @@
 <script setup>
-let message = 'Hello Vue'
+import { ref } from 'vue';
+import RouterTabs from './components/RouterTabs.vue';
+
+
 </script>
 <template>
-    <div class = "container">
-        <div class="content">
-              <h1> {{ message }}</h1>
-        </div>
-    </div>
+<RouterTabs></RouterTabs>
+<RouterView></RouterView>
 </template>
-<style>
-</style>
