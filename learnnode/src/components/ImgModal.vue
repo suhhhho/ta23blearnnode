@@ -1,5 +1,5 @@
 <script setup>
-import Modal from './Modal.vue';
+import Modal from './Modal.vue'
 
 defineProps(['active', 'url']);
 </script>
@@ -7,7 +7,7 @@ defineProps(['active', 'url']);
 <template>
     <Modal :active="active" @close="$emit('close')">
         <p class="image is-4by3">
-            <img :src="url" alt="">
-        </p>
+        <img :src="url" alt="">
+      </p>
     </Modal>
 </template>
