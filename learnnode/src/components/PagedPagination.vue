@@ -5,14 +5,14 @@
  
  let links = computed(() => {
      let links = [];
-     for(let i = 1; i<=3; i++){
+     for(let i = 1; i<=3 && i<=pagination.pages; i++){
          links[i] = i;
      }
      if(current > 6){
          links[current-3] = '...';
      }
-     if(current > 2 && current < pagination.pages-1){
-         for(let i = current-2; i<=current+2; i++){
+     if(current > 1 && current < pagination.pages){
+        for(let i = current-2; i<=current+2 && i<=pagination.pages; i++){
              links[i] = i;
          }
      }
@@ -26,7 +26,7 @@
      return links.filter(link => link);
  });
  
- console.log(links.value);
+
  </script>
  
  <template>
