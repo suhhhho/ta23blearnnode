@@ -5,12 +5,15 @@ import RouterTabs from './components/RouterTabs.vue';
 
 </script>
 <template>
- <Suspense>
+    <RouterTabs></RouterTabs>
+    <div class="container" v-if="$route.meta.container === undefined">
+        <section class="section">
+            <Suspense>
                 <RouterView></RouterView>
             </Suspense>
-    <div class="container">
-        <section class="section">
-            <RouterView></RouterView>
         </section>
     </div>
+    <Suspense v-else>
+        <RouterView></RouterView>
+    </Suspense>
 </template>
