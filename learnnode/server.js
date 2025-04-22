@@ -1,32 +1,20 @@
-import express from 'express';
- import bodyParser from 'body-parser';
- const app = express();
- const port = 3000;
- 
- let messages = [];
- 
- app.use(bodyParser.json());
- 
- app.use((req, res, next) => {
-     res.set('Access-Control-Allow-Origin', '*');
-     res.set('Access-Control-Allow-Headers', 'Content-Type');
-     next();
- });
- 
- app.get('/messages', (req, res) => {
-   res.json(messages);
-   let filteredMessages = messages.filter(msg => msg.date > new Date(req.query.date ?? null));
-   res.json(filteredMessages);
- });
- 
- 
- app.post('/messages', (req, res) => {
-    messages.push({ message: req.body.message, date: new Date()});
-     res.json(req.body);
- });
-   
- 
- 
- app.listen(port, () => {
-   console.log(`Example app listening on port http://localhost:${port}`);
- });
+import { WebSocketServer } from 'ws';
+
+const wss = new WebSocketServer({ port: 8080 });
+let messages = [];
+wss.on('connection', function connection(ws) {
+  ws.on('error', console.error);
+
+  ws.on('message', function message(data) {
+    data = JSON.parse(data);
+    console.log(data);
+    messages.push(data);
+    wss.clients.forEach(client => {
+        if(client.readyState === client.OPEN) {
+            client.send(JSON.stringify(data));
+        }
+    });
+  });
+
+  ws.send(JSON.stringify({type: 'messages', messages}));
+});
