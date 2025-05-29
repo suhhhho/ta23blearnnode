@@ -30,13 +30,15 @@
     "webpack-dev-server": "^5.1.0"
   },
   "dependencies": {
-    "axios": "^1.7.9",
+    "axios": "^1.9.0",
     "body-parser": "^2.2.0",
     "cheerio": "^1.0.0",
     "express": "^5.1.0",
+    "fs": "^0.0.1-security",
     "html-webpack-plugin": "^5.6.3",
     "leaflet": "^1.9.4",
     "md5": "^2.3.0",
+    "puppeteer": "^24.9.0",
     "vue-router": "^4.5.0",
     "ws": "^8.18.1"
   }
