@@ -1,30 +1,23 @@
 @extends('partials.layout')
+
 @section('content')
+    @php($user = request()->user())
 
-        <h2 class="font-semibold text-xl text-base-content leading-tight">
-            {{ __('Profile') }}
-        </h2>
-
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="card bg-base-300">
-                <div class="card-body">
-                    @include('profile.partials.update-profile-information-form')
+    <div class="max-w-5xl mx-auto py-10 space-y-6">
+        <div class="flex items-center gap-4">
+            <div class="avatar placeholder">
+                <div class="bg-primary text-primary-content w-16 rounded-full">
+                    {{ strtoupper(Str::substr($user->name, 0, 2)) }}
                 </div>
             </div>
-
-            <div class="card bg-base-300">
-                <div class="card-body">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="card bg-base-300">
-                <div class="card-body">
-                    @include('profile.partials.delete-user-form')
-                </div>
+            <div>
+                <p class="text-sm text-base-content/70">{{ __('Account center') }}</p>
+                <h1 class="text-3xl font-bold">{{ __('Profile') }}</h1>
             </div>
         </div>
+
+        @include('profile.partials.update-profile-information-form', ['user' => $user])
+        @include('profile.partials.update-password-form', ['user' => $user])
+        @include('profile.partials.delete-user-form', ['user' => $user])
     </div>
 @endsection

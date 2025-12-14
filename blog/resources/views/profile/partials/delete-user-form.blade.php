@@ -1,53 +1,50 @@
-<section class="space-y-6">
-    <header>
-        <h2 class="text-lg font-medium text-base-content">
-            {{ __('Delete Account') }}
-        </h2>
+<section class="card bg-base-100 shadow-md">
+    <div class="card-body space-y-6">
+        <header>
+            <h2 class="card-title text-error">{{ __('Delete account') }}</h2>
+            <p class="text-sm text-base-content/70">
+                {{ __('Once your account is deleted, all of its resources and data will be permanently removed.') }}
+            </p>
+        </header>
 
-        <p class="mt-1 text-sm text-base-content/70">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
-        </p>
-    </header>
+        <button type="button" class="btn btn-error btn-outline w-fit" onclick="document.getElementById('delete-user-modal').showModal()">
+            {{ __('Delete account') }}
+        </button>
 
-    <button class="btn btn-error" onclick="my_modal_1.showModal()">{{ __('Delete Account') }}</button>
-    <dialog id="my_modal_1" class="modal" @if($errors->userDeletion->get('password')) open @endif>
-        <div class="modal-box">
-            <form id="delete-form" method="post" action="{{ route('profile.destroy') }}" class="p-6">
-                @csrf
-                @method('delete')
-
-                <h2 class="text-lg font-medium text-base-content">
-                    {{ __('Are you sure you want to delete your account?') }}
-                </h2>
-
-                <p class="mt-1 text-sm text-base-content/70">
-                    {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
+        <dialog id="delete-user-modal" class="modal">
+            <div class="modal-box space-y-4">
+                <h3 class="font-bold text-lg">{{ __('Are you sure?') }}</h3>
+                <p class="text-sm text-base-content/70">
+                    {{ __('Please enter your password to confirm you would like to permanently delete your account.') }}
                 </p>
 
-                <fieldset class="fieldset mt-6">
-                    <legend class="fieldset-legend">@lang('Password')</legend>
-                    <input name="password" type="password" required
-                        class="input w-full @error('password') input-error @enderror" autocomplete="current-password" />
-                    @if($errors->userDeletion->get('password'))
-                        @foreach($errors->userDeletion->get('password') as $error)
-                            <p class="label text-error">{{ $error }}</p>
-                        @endforeach
-                    @endif
-                </fieldset>
-            </form>
+                <form method="POST" action="{{ route('profile.destroy') }}" class="space-y-4">
+                    @csrf
+                    @method('delete')
 
-            <div class="modal-action">
-                <div class="mt-6 flex justify-end">
-                    <form method="dialog">
-                        <button class="btn">
+                    <div class="form-control">
+                        <label for="password" class="label">
+                            <span class="label-text font-semibold">{{ __('Password') }}</span>
+                        </label>
+                        <input id="password" name="password" type="password"
+                               class="input input-bordered w-full" placeholder="••••••••" required>
+                        @error('password')
+                            <span class="text-error text-sm mt-1">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="modal-action">
+                        <button type="button" class="btn btn-ghost" onclick="document.getElementById('delete-user-modal').close()">
                             {{ __('Cancel') }}
                         </button>
-                    </form>
-                    <button type="submit" form="delete-form" class="btn btn-error ms-3">
-                        {{ __('Delete Account') }}
-                    </button>
-                </div>
+                        <button class="btn btn-error">{{ __('Delete account') }}</button>
+                    </div>
+                </form>
             </div>
-        </div>
-    </dialog>
+
+            <form method="dialog" class="modal-backdrop">
+                <button>{{ __('Close') }}</button>
+            </form>
+        </dialog>
+    </div>
 </section>
