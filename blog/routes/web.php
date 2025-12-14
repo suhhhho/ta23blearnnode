@@ -18,13 +18,15 @@ Route::get('/post/{post}', [PublicController::class, 'post'])->name('post');
 Route::get('/admin/posts/deleted', [PostController::class, 'deleted'])->name('posts.deleted');
 Route::post('/admin/posts/{post}/restore', [PostController::class, 'restore'])->name('posts.restore');
 Route::delete('/admin/posts/{post}/permadestroy', [PostController::class, 'permaDestroy'])->name('posts.permadestroy');
-Route::resource('/admin/posts', PostController::class);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('/admin/posts', PostController::class);
+
     Route::get('/secure', [PublicController::class, 'secure'])->middleware('password.confirm')->name('secure');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

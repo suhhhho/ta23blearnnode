@@ -1,5 +1,6 @@
 @extends('partials.layout')
 @section('content')
+    {{ $posts->links() }}
     <div class="grid grid-cols-4 gap-2">
         @foreach($posts as $post)
             <div class="card bg-base-200 shadow-sm">
