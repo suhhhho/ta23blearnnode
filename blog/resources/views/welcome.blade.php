@@ -9,6 +9,7 @@
                 <div class="card-body">
                     <h2 class="card-title">{{ $post->title }}</h2>
                     <p>{{ $post->snippet }}</p>
+                    <div class="text-base-content/70">{{ $post->user->name }}</div>
                     <div class="card-actions justify-end">
                         <a href="{{ route('post', $post) }}" class="btn btn-primary">Read more</a>
                     </div>
