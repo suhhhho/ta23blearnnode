@@ -11,7 +11,7 @@
 
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">@lang('Name')</legend>
-                    <input value="{{ old('email') }}" name="name" type="text" required
+                    <input value="{{ old('name') }}" name="name" type="text" required
                         class="input w-full @error('name') input-error @enderror" autofocus autocomplete="name" />
                     @error('name')
                         <p class="label text-error">{{ $message }}</p>

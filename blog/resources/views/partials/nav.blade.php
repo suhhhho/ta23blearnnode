@@ -7,7 +7,7 @@
       <ul
         tabindex="-1"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
+        <li><a href="{{route('secure')}}">Secure</a></li>
         <li>
           <a>Admin</a>
           <ul class="p-2">
@@ -22,7 +22,7 @@
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li><a>Item 1</a></li>
+      <li><a href="{{route('secure')}}">Secure</a></li>
       <li>
         <details>
           <summary>Admin</summary>
@@ -36,7 +36,26 @@
     </ul>
   </div>
   <div class="navbar-end gap-2">
-    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-    <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
+    @auth
+        <ul class="menu menu-horizontal px-1">
+            <li>
+                <details>
+                    <summary>{{Auth::user()->name}}</summary>
+                    <ul class="p-2 z-1">
+                        <li><a href="{{ route('profile.edit') }}">Profile</a></li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button>Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+    @else
+        <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+        <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
+    @endauth
   </div>
 </div>

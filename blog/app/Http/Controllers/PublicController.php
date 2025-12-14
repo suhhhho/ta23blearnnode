@@ -16,4 +16,8 @@ class PublicController extends Controller
     public function post(Post $post){
         return view('post', compact('post'));
     }
+
+    public function secure(){
+        return view('secure');
+    }
 }
