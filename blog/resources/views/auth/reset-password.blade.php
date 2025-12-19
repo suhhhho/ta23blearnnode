@@ -1,4 +1,6 @@
-<x-guest-layout>
+@extends('partials.layout')
+
+@section('content')
     <div class="min-h-screen flex items-center justify-center bg-base-200 px-4 py-10">
         <div class="card w-full max-w-md bg-base-100 shadow-xl">
             <div class="card-body space-y-6">
@@ -52,4 +54,4 @@
             </div>
         </div>
     </div>
-</x-guest-layout>
+@endsection
