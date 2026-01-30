@@ -20,7 +20,7 @@
         <div class="text-base-content/70"><b>Likes: </b>{{ $post->likes_count }}</div>
         <div>
             @foreach($post->tags as $tag)
-                <div class="badge badge-soft badge-primary mb-1">{{$tag->name}}</div>
+                <a href="{{ route('tag', $tag) }}" class="badge bg-pink-300 text-white mb-1">{{$tag->name}}</a>
             @endforeach
         </div>
         <div class="card-actions justify-end">
